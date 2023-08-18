@@ -15,7 +15,8 @@ export default {
         danger: '#FF8F8F'
       },
       backgroundImage: {
-        gradient: 'linear-gradient(90deg, #DEE0FC 0%, #996DFF 51.04%, #BC9FFF 100%)'
+        gradient: 'linear-gradient(90deg, #DEE0FC 0%, #996DFF 51.04%, #BC9FFF 100%)',
+        borderGradient: 'linear-gradient(90deg, #C497FF 0%, #9747FF 100%)'
       }
     },
   },
