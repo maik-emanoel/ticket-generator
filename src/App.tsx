@@ -1,12 +1,16 @@
+import { useState } from "react";
+
 import infoEvent from "./assets/info-event.png";
 import imgCover from "./assets/img-cover.png";
 import noUser from "./assets/no-user.png";
-import { useState } from "react";
+import success from "./assets/success.svg";
 
 export function App() {
   const [userLogin, setUserLogin] = useState("");
   const [userImage, setUserImage] = useState(null);
   const [userName, setUserName] = useState(null);
+
+  const [status, setStatus] = useState("");
 
   function handleGenerateTicket() {
     async function getUserInfo() {
@@ -14,11 +18,16 @@ export function App() {
       const data = await response.json();
       const { avatar_url, name } = data;
 
-      if(!response.ok) {
-        setUserName(null)
-        setUserImage(null)
+      if (!response.ok) {
+        setStatus("error");
+
+        setTimeout(() => {
+          setStatus("")
+        },3000)
+        return
       }
 
+      setStatus('ok')
       setUserImage(avatar_url);
       setUserName(name);
     }
@@ -28,7 +37,7 @@ export function App() {
 
   return (
     <main className="max-w-[1200px] w-[90%] flex gap-8 mx-auto">
-      <div className="w-full max-w-[490px]">
+      <div className="w-full max-w-[490px] self-center">
         <h1
           className="bg-gradient bg-clip-text text-[40px] uppercase font-['Space_Grotesk'] leading-[130%] w-fit mb-8"
           style={{ WebkitTextFillColor: "transparent" }}
@@ -37,21 +46,39 @@ export function App() {
         </h1>
 
         <form className="max-w-[384px]">
-          <div className="flex flex-col gap-4 mb-4">
-            <label
-              htmlFor="userLogin"
-              className="font-['Space_Grotesk'] text-grayLight text-xl leading-8 uppercase"
-            >
-              Digite seu usuário do GitHub
-            </label>
-            <input
-              type="text"
-              placeholder="Nome de usuário"
-              id="userLogin"
-              className="bg-[url(./assets/logo-github.svg)] bg-no-repeat bg-[12px] py-4 px-3 pl-11 focus:outline-0 placeholder:text-grayDark"
-              value={userLogin}
-              onChange={(e) => setUserLogin(e.target.value)}
-            />
+          <div className="flex flex-col mb-4">
+            {status === "ok" ? (
+              <p className="flex gap-4 items-center">
+                <img src={success} alt="Ícone de busca bem-sucedida" />
+                <span className="text-xl leading-8 uppercase font-['Space_Grotesk'] text-grayLight">
+                  Ticket gerado com sucesso
+                </span>
+              </p>
+            ) : (
+              <>
+                <label
+                  htmlFor="userLogin"
+                  className="font-['Space_Grotesk'] text-grayLight text-xl leading-8 uppercase mb-4"
+                >
+                  Digite seu usuário do GitHub
+                </label>
+                <input
+                  type="text"
+                  placeholder="Nome de usuário"
+                  id="userLogin"
+                  className="bg-[url(./assets/logo-github.svg)] bg-no-repeat bg-[12px] py-4 px-3 pl-11 mb-1 focus:outline-0 placeholder:text-grayDark"
+                  value={userLogin}
+                  onChange={(e) => setUserLogin(e.target.value)}
+                  autoComplete="off"
+                />
+
+                {status === "error" && (
+                  <p className="text-lg leading-7 text-danger">
+                    Usuário inválido. Verifique e tente novamente.
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           <button
@@ -62,7 +89,7 @@ export function App() {
             }}
           >
             <span className="font-bold uppercase text-sm text-white">
-              Gerar meu ticket
+              {status === 'ok' ? 'Fazer download' : 'Gerar ticket'}
             </span>
           </button>
         </form>
