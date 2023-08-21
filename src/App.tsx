@@ -1,9 +1,6 @@
 import { useState } from "react";
-
-import infoEvent from "./assets/info-event.png";
-import imgCover from "./assets/img-cover.png";
-import noUser from "./assets/no-user.png";
-import success from "./assets/success.svg";
+import { CardTicket } from "./components/CardTicket";
+import { SuccessMessage } from "./components/SuccessMessage";
 
 export function App() {
   const [userLogin, setUserLogin] = useState("");
@@ -11,19 +8,25 @@ export function App() {
   const [userName, setUserName] = useState(null);
 
   const [status, setStatus] = useState("");
+  const [turnInvisible, setTurnInvisible] = useState(false)
 
   function handleGenerateTicket() {
     async function getUserInfo() {
       const response = await fetch(`https://api.github.com/users/${userLogin}`);
       const data = await response.json();
       const { avatar_url, name } = data;
+      setTurnInvisible(false)
 
       if (!response.ok) {
         setStatus("error");
 
         setTimeout(() => {
+          setTurnInvisible(true)
+        }, 2400)
+
+        setTimeout(() => {
           setStatus("")
-        },3000)
+        }, 3000)
         return
       }
 
@@ -36,7 +39,7 @@ export function App() {
   }
 
   return (
-    <main className="max-w-[1200px] w-[90%] flex gap-8 mx-auto">
+    <main className="max-w-[1200px] w-[90%] flex gap-8 mx-auto min-h-[400px]">
       <div className="w-full max-w-[490px] self-center">
         <h1
           className="bg-gradient bg-clip-text text-[40px] uppercase font-['Space_Grotesk'] leading-[130%] w-fit mb-8"
@@ -48,12 +51,7 @@ export function App() {
         <form className="max-w-[384px]">
           <div className="flex flex-col mb-4">
             {status === "ok" ? (
-              <p className="flex gap-4 items-center">
-                <img src={success} alt="Ícone de busca bem-sucedida" />
-                <span className="text-xl leading-8 uppercase font-['Space_Grotesk'] text-grayLight">
-                  Ticket gerado com sucesso
-                </span>
-              </p>
+              <SuccessMessage />
             ) : (
               <>
                 <label
@@ -73,7 +71,7 @@ export function App() {
                 />
 
                 {status === "error" && (
-                  <p className="text-lg leading-7 text-danger">
+                  <p className={`leading-7 text-danger ${turnInvisible ? 'animate-fadeOut' : 'animate-fadeIn'}`}>
                     Usuário inválido. Verifique e tente novamente.
                   </p>
                 )}
@@ -95,40 +93,7 @@ export function App() {
         </form>
       </div>
 
-      <div className="bg-borderGradient flex p-8 rounded-sm">
-        <div>
-          <img
-            src={imgCover}
-            alt="Imagem com a logo do evento"
-            className="h-full"
-          />
-        </div>
-
-        <div className="bg-grayLight p-4 flex flex-col items-center">
-          <div className="flex-1 w-full flex flex-col items-center gap-2">
-            <div className="max-w-[128px] max-h-[128px] h-full flex justify-center">
-              <img
-                src={userImage != null ? userImage : noUser}
-                alt="Foto para quando nenhum usuário for inserido"
-                className="rounded-full"
-              />
-            </div>
-            <div className="flex flex-col text-center">
-              <span className="font-['Space_Grotesk'] font-medium text-xs uppercase tracking-[1.26px] text-purpleNormal">
-                Tripulante
-              </span>
-              <span className="font-bold leading-5">
-                {userName != null ? userName : "Seu nome aqui"}
-              </span>
-            </div>
-          </div>
-
-          <img
-            src={infoEvent}
-            alt="Imagem que detalha as informações do evento"
-          />
-        </div>
-      </div>
+      <CardTicket userImage={userImage} userName={ userName} />
     </main>
   );
 }
