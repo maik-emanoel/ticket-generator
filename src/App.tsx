@@ -3,6 +3,8 @@ import { CardTicket } from "./components/CardTicket";
 import { SuccessMessage } from "./components/SuccessMessage";
 import { touchIsSupported } from "./utils/touchUtil";
 
+import loadingImage from "./assets/loading.svg"
+
 export function App() {
   const [userLogin, setUserLogin] = useState("");
   const [userImage, setUserImage] = useState(null);
@@ -11,29 +13,35 @@ export function App() {
   const [status, setStatus] = useState("");
   const [turnInvisible, setTurnInvisible] = useState(false);
 
+  const [isLoading, setIsloading] = useState(false);
+
   function handleGenerateTicket() {
     async function getUserInfo() {
       const response = await fetch(`https://api.github.com/users/${userLogin}`);
       const data = await response.json();
       const { avatar_url, name } = data;
       setTurnInvisible(false);
+      setIsloading(true);
 
-      if (!response.ok) {
-        setStatus("error");
+      setTimeout(() => {
+        setIsloading(false);
 
-        setTimeout(() => {
-          setTurnInvisible(true);
-        }, 2400);
-
-        setTimeout(() => {
-          setStatus("");
-        }, 3000);
-        return;
-      }
-
-      setStatus("ok");
-      setUserImage(avatar_url);
-      setUserName(name);
+        if (!response.ok) {
+          setStatus("error");
+          setTimeout(() => {
+            setTurnInvisible(true);
+          }, 2400);
+  
+          setTimeout(() => {
+            setStatus("");
+          }, 3000);
+          return;
+        }
+  
+        setStatus("ok");
+        setUserImage(avatar_url);
+        setUserName(name);
+      }, 1500);
     }
 
     getUserInfo();
@@ -92,9 +100,13 @@ export function App() {
               handleGenerateTicket();
             }}
           >
-            <span className="font-bold uppercase text-sm text-white">
-              {status === "ok" ? "Fazer download" : "Gerar ticket"}
-            </span>
+            {isLoading ? (
+              <img src={loadingImage} alt="Ícone de carregamento" className="animate-spin"/>
+            ) : (
+              <span className="font-bold uppercase text-sm text-white">
+                {status === "ok" ? "Fazer download" : "Gerar ticket"}
+              </span>
+            )}
           </button>
         </form>
       </div>
