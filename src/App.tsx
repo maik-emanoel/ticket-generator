@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CardTicket } from "./components/CardTicket";
 import { SuccessMessage } from "./components/SuccessMessage";
+import { touchIsSupported } from "./utils/touchUtil";
 
 export function App() {
   const [userLogin, setUserLogin] = useState("");
@@ -8,29 +9,29 @@ export function App() {
   const [userName, setUserName] = useState(null);
 
   const [status, setStatus] = useState("");
-  const [turnInvisible, setTurnInvisible] = useState(false)
+  const [turnInvisible, setTurnInvisible] = useState(false);
 
   function handleGenerateTicket() {
     async function getUserInfo() {
       const response = await fetch(`https://api.github.com/users/${userLogin}`);
       const data = await response.json();
       const { avatar_url, name } = data;
-      setTurnInvisible(false)
+      setTurnInvisible(false);
 
       if (!response.ok) {
         setStatus("error");
 
         setTimeout(() => {
-          setTurnInvisible(true)
-        }, 2400)
+          setTurnInvisible(true);
+        }, 2400);
 
         setTimeout(() => {
-          setStatus("")
-        }, 3000)
-        return
+          setStatus("");
+        }, 3000);
+        return;
       }
 
-      setStatus('ok')
+      setStatus("ok");
       setUserImage(avatar_url);
       setUserName(name);
     }
@@ -71,7 +72,11 @@ export function App() {
                 />
 
                 {status === "error" && (
-                  <p className={`leading-7 text-danger ${turnInvisible ? 'animate-fadeOut' : 'animate-fadeIn'}`}>
+                  <p
+                    className={`leading-7 text-danger ${
+                      turnInvisible ? "animate-fadeOut" : "animate-fadeIn"
+                    }`}
+                  >
                     Usuário inválido. Verifique e tente novamente.
                   </p>
                 )}
@@ -80,20 +85,21 @@ export function App() {
           </div>
 
           <button
-            className="w-full h-14 flex justify-center items-center bg-purpleNormal"
+            data-IsTouchable={touchIsSupported}
+            className="w-full h-14 flex justify-center items-center bg-purpleNormal transition-colors duration-200 data-[isTouchable=false]:hover:bg-purpleDark"
             onClick={(e) => {
               e.preventDefault();
               handleGenerateTicket();
             }}
           >
             <span className="font-bold uppercase text-sm text-white">
-              {status === 'ok' ? 'Fazer download' : 'Gerar ticket'}
+              {status === "ok" ? "Fazer download" : "Gerar ticket"}
             </span>
           </button>
         </form>
       </div>
 
-      <CardTicket userImage={userImage} userName={ userName} />
+      <CardTicket userImage={userImage} userName={userName} />
     </main>
   );
 }
