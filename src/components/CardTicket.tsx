@@ -9,17 +9,17 @@ interface CardTicketProps {
 
 export function CardTicket({userImage, userName}: CardTicketProps) {
   return (
-    <div className="bg-borderGradient flex p-8 rounded-sm h-fit self-center">
+    <div className="bg-borderGradient flex p-8 rounded-sm h-fit self-center xl:flex-col-reverse xl:p-5 xl:rounded-md">
       <div>
         <img
           src={imgCover}
           alt="Imagem com a logo do evento"
-          className="h-full"
+          className="h-full w-full object-cover xl:h-14"
         />
       </div>
 
-      <div className="bg-grayLight p-4 flex flex-col items-center">
-        <div className="flex-1 w-full flex flex-col items-center gap-2">
+      <div className="bg-grayLight p-4 flex flex-col items-center flex-shrink-0">
+        <div className="flex-1 w-full flex flex-col items-center gap-2 mb-6">
           <div className="max-w-[128px] max-h-[128px] h-full flex justify-center">
             <img
               src={userImage != null ? userImage : noUser}

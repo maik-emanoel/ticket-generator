@@ -48,16 +48,16 @@ export function App() {
   }
 
   return (
-    <main className="max-w-[1200px] w-[90%] flex gap-8 mx-auto min-h-[400px]">
-      <div className="w-full max-w-[490px] self-center">
+    <main className="max-w-[1200px] w-[85%] flex gap-8 mx-auto min-h-[400px] my-16 justify-around lg:flex-col-reverse">
+      <div className="w-full max-w-[490px] self-center sm:max-w-[306px]">
         <h1
-          className="bg-gradient bg-clip-text text-[40px] uppercase font-['Space_Grotesk'] leading-[130%] w-fit mb-8"
+          className="bg-gradient bg-clip-text text-[40px] uppercase font-['Space_Grotesk'] leading-[130%] w-fit mb-8 lg:text-2xl lg:max-w-[384px] lg:mx-auto sm:text-xl"
           style={{ WebkitTextFillColor: "transparent" }}
         >
           gere seu ticket e compartilhe com o mundo
         </h1>
 
-        <form className="max-w-[384px]">
+        <form className="max-w-[384px] lg:mx-auto">
           <div className="flex flex-col mb-4">
             {status === "ok" ? (
               <SuccessMessage />
