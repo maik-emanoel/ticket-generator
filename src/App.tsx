@@ -83,7 +83,7 @@ export function App() {
                   <p
                     className={`leading-7 text-danger ${
                       turnInvisible ? "animate-fadeOut" : "animate-fadeIn"
-                    }`}
+                    } sm:text-sm`}
                   >
                     Usuário inválido. Verifique e tente novamente.
                   </p>
