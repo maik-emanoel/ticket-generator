@@ -3,7 +3,7 @@ import { CardTicket } from "./components/CardTicket";
 import { SuccessMessage } from "./components/SuccessMessage";
 import { touchIsSupported } from "./utils/touchUtil";
 
-import loadingImage from "./assets/loading.svg"
+import loadingImage from "./assets/loading.svg";
 
 export function App() {
   const [userLogin, setUserLogin] = useState("");
@@ -31,13 +31,13 @@ export function App() {
           setTimeout(() => {
             setTurnInvisible(true);
           }, 2400);
-  
+
           setTimeout(() => {
             setStatus("");
           }, 3000);
           return;
         }
-  
+
         setStatus("ok");
         setUserImage(avatar_url);
         setUserName(name);
@@ -93,15 +93,24 @@ export function App() {
           </div>
 
           <button
-            data-IsTouchable={touchIsSupported}
-            className="w-full h-14 flex justify-center items-center bg-purpleNormal transition-colors duration-200 data-[isTouchable=false]:hover:bg-purpleDark"
+            data-istouchable={touchIsSupported}
+            className="w-full h-14 flex justify-center items-center bg-purpleNormal transition-colors duration-200 data-[istouchable=false]:hover:bg-purpleDark"
             onClick={(e) => {
               e.preventDefault();
+              if (status === "ok") {
+                alert("Falha ao tentar fazer download, tente novamente mais tarde!");
+                return;
+              }
+
               handleGenerateTicket();
             }}
           >
             {isLoading ? (
-              <img src={loadingImage} alt="Ícone de carregamento" className="animate-spin"/>
+              <img
+                src={loadingImage}
+                alt="Ícone de carregamento"
+                className="animate-spin"
+              />
             ) : (
               <span className="font-bold uppercase text-sm text-white">
                 {status === "ok" ? "Fazer download" : "Gerar ticket"}
