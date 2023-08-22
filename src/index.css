@@ -4,13 +4,13 @@
 
 @layer base {
   body, #root {
-    height: 100vh;
+    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     -webkit-tap-highlight-color: transparent;
   }
 
   #root {
-    background: url(./assets/img-hero.png) no-repeat center/cover;
+    background: url(./assets/img-hero.png) no-repeat center/cover fixed;
     display: grid;
     place-items: center;
   }
