@@ -16,7 +16,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-O projeto "Ticket Generator" é uma interface que busca as informações do usuário através da API do Github (é necessário ter uma conta no Github) e, com esses dados, cria um Ticket personalizado. <br>
+O projeto "Ticket Generator" é uma interface que busca as informações do usuário através da API do Github (é necessário ter uma conta no Github) e, com esses dados, cria um Ticket personalizado para o evento "IA - Para Devs" que foi feito pela Rocketseat. <br>
 
 Projeto construído a partir do layout proposto no desafio [#BoraCodar33](https://boracodar.dev/) realizado pela [Rocketseat](https://rocketseat.com.br).
 Após o desenvolvimento do projeto inicial, adicionei novas features, tais quais:
