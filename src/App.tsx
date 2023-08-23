@@ -113,7 +113,7 @@ export function App() {
 
           <button
             data-istouchable={touchIsSupported}
-            className="w-full h-14 flex justify-center items-center bg-purpleNormal transition-colors duration-200 data-[istouchable=false]:hover:bg-purpleDark"
+            className="w-full h-14 flex justify-center items-center bg-purpleNormal transition-colors duration-200 data-[istouchable=false]:hover:bg-purpleDark disabled:brightness-75 disabled:pointer-events-none disabled:select-none"
             onClick={(e) => {
               e.preventDefault();
               if (status === "ok") {
@@ -123,6 +123,7 @@ export function App() {
 
               handleGenerateTicket();
             }}
+            disabled={userLogin === ''}
           >
             {isLoading ? (
               <img
