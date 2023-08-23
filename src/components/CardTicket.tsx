@@ -4,12 +4,13 @@ import noUser from "../assets/no-user.png";
 
 interface CardTicketProps {
     userImage: null,
-    userName: null
+    userName: null,
+    cardTicketRef: React.MutableRefObject<null>
 }
 
-export function CardTicket({userImage, userName}: CardTicketProps) {
+export function CardTicket({userImage, userName, cardTicketRef}: CardTicketProps) {
   return (
-    <div className="bg-borderGradient flex p-8 rounded-sm h-fit self-center xl:flex-col-reverse xl:p-5 xl:rounded-md">
+    <div className="bg-borderGradient flex p-8 rounded-sm h-fit self-center xl:flex-col-reverse xl:p-5 xl:rounded-md" ref={cardTicketRef}>
       <div>
         <img
           src={imgCover}
