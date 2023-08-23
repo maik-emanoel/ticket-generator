@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toPng } from "html-to-image";
+
 import { CardTicket } from "./components/CardTicket";
 import { SuccessMessage } from "./components/SuccessMessage";
 import { touchIsSupported } from "./utils/touchUtil";
-
 import loadingImage from "./assets/loading.svg";
 
 export function App() {
@@ -14,6 +15,24 @@ export function App() {
   const [turnInvisible, setTurnInvisible] = useState(false);
 
   const [isLoading, setIsloading] = useState(false);
+
+  const cardTicketRef = useRef(null);
+
+  const htmlToImageConvert = () => {
+    if (cardTicketRef.current) {
+      toPng(cardTicketRef.current, { cacheBust: false })
+        .then((dataUrl) => {
+          const link = document.createElement("a");
+          link.download = "screenshot.png";
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch((error) => {
+          console.log(error)
+          alert("Falha ao tentar fazer download, tente novamente mais tarde!")
+        });
+    }
+  };
 
   function handleGenerateTicket() {
     async function getUserInfo() {
@@ -98,7 +117,7 @@ export function App() {
             onClick={(e) => {
               e.preventDefault();
               if (status === "ok") {
-                alert("Falha ao tentar fazer download, tente novamente mais tarde!");
+                htmlToImageConvert();
                 return;
               }
 
@@ -120,7 +139,11 @@ export function App() {
         </form>
       </div>
 
-      <CardTicket userImage={userImage} userName={userName} />
+      <CardTicket
+        userImage={userImage}
+        userName={userName}
+        cardTicketRef={cardTicketRef}
+      />
     </main>
   );
 }
