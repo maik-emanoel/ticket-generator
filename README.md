@@ -1,27 +1,28 @@
-# React + TypeScript + Vite
+<h1 align="center"> Ticket Generator - BoraCodar#33 </h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![preview](./.github/preview.png)
 
-Currently, two official plugins are available:
+[Clique aqui para acessar](https://ticket-generator-three.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias
 
-## Expanding the ESLint configuration
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [React](https://react.dev/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [htmlToImage](https://github.com/bubkoo/html-to-image#readme)
+- Git and GitHub
 
-- Configure the top-level `parserOptions` property like this:
+## 💻 Projeto
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+O projeto "Ticket Generator" é uma interface que busca as informações do usuário através da API do Github (é necessário ter uma conta no Github) e, com esses dados, cria um Ticket personalizado. <br>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Projeto construído a partir do layout proposto no desafio [#BoraCodar33](https://boracodar.dev/) realizado pela [Rocketseat](https://rocketseat.com.br).
+Após o desenvolvimento do projeto inicial, adicionei novas features, tais quais:
+
+- Layout responsivo (Adaptado para telas menores);
+- Dados dinâmicos;
+- Possibilidade de baixar seu ticket;
+- Animações;
+- Entre outras pequenas modificações.
