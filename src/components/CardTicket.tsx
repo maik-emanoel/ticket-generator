@@ -1,5 +1,5 @@
-import infoEvent from "../assets/info-event.png";
-import imgCover from "../assets/img-cover.png";
+import infoEvent from "../assets/info-event.svg";
+import imgCover from "../assets/img-cover.svg";
 import noUser from "../assets/no-user.png";
 
 interface CardTicketProps {
